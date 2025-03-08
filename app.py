@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+# from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import google.generativeai as ai
 
 app = Flask(__name__)
@@ -7,11 +8,11 @@ app = Flask(__name__)
 ai.configure(api_key="AIzaSyCaMq4ro-BN18OTV9XYvmHc-VX5X6P3MxU")
 model = ai.GenerativeModel("gemini-2.0-flash")
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"], endpoint="dashboard")
 def dashboard():
     return render_template("Dashboard.html")
 
-@app.route("/Micro&Macro", methods=["GET", "POST"])
+@app.route("/Micro&Macro", methods=["GET", "POST"], endpoint="micro_macro")
 def micro_macro():
     response = ""
     if request.method == "POST":
@@ -27,7 +28,7 @@ def micro_macro():
     return render_template("mm.html", response=response)
 
 
-@app.route("/Letsmakerecipie", methods=["GET", "POST"])
+@app.route("/Letsmakerecipie", methods=["GET", "POST"], endpoint="Letsmakerecipie")
 def Letsmakerecipie():
     response = ""
     if request.method == "POST":
@@ -44,7 +45,8 @@ def Letsmakerecipie():
 
 
 
-@app.route("/custommealplanner", methods=["GET", "POST"])
+
+@app.route("/custommealplanner", methods=["GET", "POST"], endpoint="custommealplanner")
 def custommealplanner():
     response = ""
     if request.method == "POST":
@@ -93,6 +95,27 @@ def custommealplanner():
             response = f"Error: {e}"
 
     return render_template("cmp.html", response=response)
+
+
+@app.route('/chat', methods=['GET'], endpoint='chat')
+def chat():
+    return render_template('chat.html')
+
+
+@app.route('/ask', methods=['POST'])
+def ask():
+    user_input = request.json.get('message')
+
+    try:
+        response = model.generate_content(user_input)
+        reply = response.text
+    except Exception as e:
+        reply = f"Error: {str(e)}"
+    
+    return jsonify({"reply": reply})
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
