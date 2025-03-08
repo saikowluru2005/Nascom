@@ -275,23 +275,47 @@ body {
     margin: 25px;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
 
 }
 
+.form-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.form-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #4CAF50;
+}
+.btn-custom {
+    background-color: #4CAF50;
+    color: white;
+    transition: 0.3s ease;
+}
+.btn-custom:hover {
+    background-color: #45a049;
+}
 .food form button{
     background-color: #6f6486;
     color: white;
     border: none;
     padding: 10px 20px;
-    margin-left: 10px;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.food form input{
+.food form textarea{
     width: 60%;
 }
 
@@ -537,15 +561,123 @@ body {
         <div class="p-4">
             <div class="welcome">
               <div class="content rounded-3 p-3">
-                <h1 class="fs-3">Welcome to Micros and Macros calculator</h1>
+                <h1 class="fs-3">Custom Meal Planner</h1>
                 <!-- <p class="mb-0">Hello Sai Kowluru, welcome to your awesome dashboard!</p> -->
               </div>
             </div>
-            <div class="food">
-            <form method="post">
-                <input type="text" class="form-control" placeholder="Search for a food item" name="ask">
-                <button type="submit">Find it!</button>
-             </form>
+            <div class="container">
+                <div class="form-container">
+                    <div class="form-heading">User Profile Form</div>
+                    <form method="POST">
+                        <div class="form-row">
+                            
+                            <!-- Age -->
+                            <div class="form-group col-md-6">
+                                <label for="age">Age:</label>
+                                <input type="number" class="form-control" id="age" name="age" required />
+                            </div>
+                        
+                            
+                            <!-- Height -->
+                            <div class="form-group col-md-6">
+                                <label for="height">Height (cm):</label>
+                                <input type="number" class="form-control" id="height" name="height" required />
+                            </div>
+                        </div>
+            
+                        <div class="form-row">
+                            <!-- Weight -->
+                            <div class="form-group col-md-6">
+                                <label for="weight">Weight (kg):</label>
+                                <input type="number" class="form-control" id="weight" name="weight" required />
+                            </div>
+                            
+                            <!-- Target Weight -->
+                            <!-- <div class="form-group col-md-6">
+                                <label for="target_weight">Target Weight (kg):</label>
+                                <input type="number" class="form-control" id="target_weight" name="target_weight" required />
+                            </div> -->
+                        </div>
+            
+                        <!-- Diet Preference -->
+                        <div class="form-group">
+                            <label>Diet Preference:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="veg" name="diet" value="Vegetarian" required />
+                                <label class="form-check-label" for="veg">Vegetarian</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="non_veg" name="diet" value="Non-Vegetarian" required />
+                                <label class="form-check-label" for="non_veg">Non-Vegetarian</label>
+                            </div>
+                        </div>
+            
+                        <!-- Preferred Vegetables -->
+                        <div class="form-group">
+                            <label for="preferred_vegetables">Preferred Vegetables:</label>
+                            <input type="text" class="form-control" id="preferred_vegetables" name="preferred_vegetables" placeholder="If none, write 'No preference'" />
+                        </div>
+            
+                        <!-- Macronutrient Preferences -->
+                        <div class="form-group">
+                            <label>Specific Macronutrient Preferences:</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control" name="carbs" placeholder="Carbohydrates (if any)" />
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="proteins" placeholder="Proteins (if any)" />
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="fats" placeholder="Fats (if any)" />
+                                </div>
+                            </div>
+                            <div class="form-row mt-2">
+                                <div class="col">
+                                    <input type="text" class="form-control" name="vitamins" placeholder="Vitamins (if any)" />
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="minerals" placeholder="Minerals (if any)" />
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Allergies -->
+                        <div class="form-group">
+                            <label for="allergies">Allergies:</label>
+                            <input type="text" class="form-control" id="allergies" name="allergies" placeholder="If none, write 'No'" />
+                        </div>
+            
+                        <!-- Activity Level -->
+                        <div class="form-group">
+                            <label for="activity_level">Daily Activity Level:</label>
+                            <select class="form-control" id="activity_level" name="activity_level" required>
+                                <option value="" disabled selected>Select your activity level</option>
+                                <option value="sedentary">Sedentary (Little to no exercise)</option>
+                                <option value="lightly_active">Lightly active (Light exercise 1–3 days/week)</option>
+                                <option value="moderately_active">Moderately active (Moderate exercise 3–5 days/week)</option>
+                                <option value="very_active">Very active (Hard exercise 6–7 days/week)</option>
+                                <option value="super_active">Super active (Very hard exercise/physical job)</option>
+                            </select>
+                        </div>
+            
+                        <!-- Additional Notes -->
+                        <div class="form-group">
+                            <label for="notes">Additional Notes:</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="4" placeholder="Write any additional information here..."></textarea>
+                        </div>
+            
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-custom btn-block" style="background-color: #6f6486;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;">Submit</button>
+                    </form>
+                </div>
+            </div>
                 {% if response %}
                       <h3>Result:</h3>
                     <div>

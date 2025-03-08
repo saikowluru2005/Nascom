@@ -42,5 +42,57 @@ def Letsmakerecipie():
             
     return render_template("lmr.html", response=response)
 
+
+
+@app.route("/custommealplanner", methods=["GET", "POST"])
+def custommealplanner():
+    response = ""
+    if request.method == "POST":
+        # Collect form data
+        age= request.form.get("age")
+        height = request.form.get("height")
+        weight = request.form.get("weight")
+        target_weight = request.form.get("target_weight")
+        diet = request.form.get("diet")
+        preferred_vegetables = request.form.get("preferred_vegetables", "No preference")
+        carbs = request.form.get("carbs", "No preference")
+        proteins = request.form.get("proteins", "No preference")
+        fats = request.form.get("fats", "No preference")
+        vitamins = request.form.get("vitamins", "No preference")
+        minerals = request.form.get("minerals", "No preference")
+        allergies = request.form.get("allergies", "No")
+        activity_level = request.form.get("activity_level")
+        notes = request.form.get("notes", "")
+
+        prompt = f"""
+        Create a personalized meal plan , a {age}-year-old person with a height of {height} cm and a weight of {weight} kg. 
+        Goal is to reach {target_weight} kg.
+        
+        Diet preference: {diet}
+        Preferred vegetables: {preferred_vegetables}
+        Macronutrient preferences:
+        - Carbohydrates: {carbs}
+        - Proteins: {proteins}
+        - Fats: {fats}
+        Micronutrient preferences:
+        - Vitamins: {vitamins}
+        - Minerals: {minerals}
+        Allergies: {allergies}
+        Activity level: {activity_level}
+        
+        Additional notes: {notes}
+
+        Provide a detailed 1 week meal plan in 200 words with recipies, in point-wise format, including meals for breakfast, lunch, and dinner.
+        """
+
+        try:
+            # Generate AI-based meal plan
+            result = model.generate_content(prompt)
+            response = result.text if result.text else "No response from the model."
+        except Exception as e:
+            response = f"Error: {e}"
+
+    return render_template("cmp.html", response=response)
+
 if __name__ == "__main__":
     app.run(debug=True)
