@@ -36,7 +36,7 @@ def Letsmakerecipie():
     response = ""
     if request.method == "POST":
         ask = request.form.get("ask")
-        prompt = f"Give me the micros and macros and calorie content in {ask} recipie in 100 words, give output without bolding of any word and give evrything in point-wise format in cluding recipie. Provide separate sections for micros and macros.\n\n"
+        prompt = f"Give me the micros and macros and calorie content in {ask} recipie in 100 words, give output without bolding of any word and give evrything in point-wise format in cluding recipie. Provide separate sections for micros and macros. Don;t bold any word\n\n"
         try:
             result = model.generate_content(prompt)
             response = result.text if result.text else "No response from the model."
@@ -102,7 +102,8 @@ def custommealplanner():
         
         Additional notes: {notes}
 
-        Provide a detailed 1 week meal plan in 200 words with recipies, in point-wise format, including meals for breakfast, lunch, and dinner.
+        Provide a detailed 1 week meal plan seperated by each day in 200 words with recipies, in point-wise format, including meals for breakfast, lunch, and dinner.
+        Don;t bold any word
         """
 
         try:

@@ -615,7 +615,7 @@ body {
             </div>
             <div class="container">
                 <div class="form-container">
-                    <div class="form-heading">User Profile Form</div>
+                    <div class="form-heading" style="color: #0d0d0e;">User Profile Form</div>
                     <form method="POST">
                         <div class="form-row">
                             
@@ -651,8 +651,8 @@ body {
                         <div class="form-group">
                             <label>Diet Preference:</label><br>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="veg" name="diet" value="Vegetarian" required />
-                                <label class="form-check-label" for="veg">Vegetarian</label>
+                                <input type="radio" class="form-check-input" id="veg" name="diet" value="Vegetarian" required checked/>
+                                <label class="form-check-label" for="veg" >Vegetarian</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input type="radio" class="form-check-input" id="non_veg" name="diet" value="Non-Vegetarian" required />
@@ -663,7 +663,7 @@ body {
                         <!-- Preferred Vegetables -->
                         <div class="form-group">
                             <label for="preferred_vegetables">Preferred Vegetables:</label>
-                            <input type="text" class="form-control" id="preferred_vegetables" name="preferred_vegetables" placeholder="If none, write 'No preference'" />
+                            <input type="text" class="form-control" id="preferred_vegetables" name="preferred_vegetables" placeholder="If none, write 'No preference'" value="No preference"/>
                         </div>
             
                         <!-- Macronutrient Preferences -->
@@ -693,7 +693,7 @@ body {
                         <!-- Allergies -->
                         <div class="form-group">
                             <label for="allergies">Allergies:</label>
-                            <input type="text" class="form-control" id="allergies" name="allergies" placeholder="If none, write 'No'" />
+                            <input type="text" class="form-control" id="allergies" name="allergies" placeholder="If none, write 'No'"  value="No"/>
                         </div>
             
                         <!-- Activity Level -->
@@ -726,12 +726,27 @@ body {
                     </form>
                 </div>
             </div>
+            <div id="result" style="border: 2px solid #6f6486;padding: 25px; background-color:#272727;box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
                 {% if response %}
-                      <h3>Result:</h3>
-                    <div>
-                        {{ response | safe }}
-                    </div>     
+                    <h2 style="text-align: center; color:white">Analysis Result:</h2>
+                    <pre id="jsonResponse" style="font-family: Arial, Helvetica, sans-serif; color:white">{{ response | safe }}</pre>
                 {% endif %}
+            </div>
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const responseElement = document.getElementById('jsonResponse');
+                    if (responseElement) {
+                        try {
+                            const parsedResponse = JSON.parse(responseElement.textContent);
+                            responseElement.textContent = JSON.stringify(parsedResponse, null, 2); // Prettify JSON
+                        } catch (error) {
+                            // If parsing fails, it's likely not JSON, leave the text as is.
+                            console.log("Response is not JSON. Keeping raw text.");
+                        }
+                    }
+                });
+            </script>
             </div>
         </div>
 </body>
