@@ -5,7 +5,7 @@ import google.generativeai as ai
 app = Flask(__name__)
 
 # Configure AI model
-ai.configure(api_key="AIzaSyCaMq4ro-BN18OTV9XYvmHc-VX5X6P3MxU")
+ai.configure(api_key="API-KEY")
 model = ai.GenerativeModel("gemini-2.0-flash")
 
 @app.route("/", methods=["GET", "POST"], endpoint="dashboard")
@@ -17,7 +17,7 @@ def micro_macro():
     response = ""
     if request.method == "POST":
         ask = request.form.get("ask")
-        prompt = f"Give me the micros and macros in {ask} in 100 words, in point-wise format. Provide separate sections for micros and macros.\n\n"
+        prompt = f"Give me the macros and it's propotion, micros and it's propotion, and calorie content in {ask} in 100 words, give output without bolding of any word in point-wise format. Provide separate sections for micros and macros.\n\n"
         
         try:
             result = model.generate_content(prompt)
@@ -26,6 +26,9 @@ def micro_macro():
             response = f"Error: {e}"
             
     return render_template("mm.html", response=response)
+
+
+
 
 
 @app.route("/Letsmakerecipie", methods=["GET", "POST"], endpoint="Letsmakerecipie")

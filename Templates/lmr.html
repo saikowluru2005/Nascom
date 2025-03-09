@@ -82,15 +82,15 @@
 	--dk-gray-200: #E5E7EB;
 	--dk-gray-300: #D1D5DB;
 	--dk-gray-400: #9CA3AF;
-	--dk-gray-500: #6B7280;
-	--dk-gray-600: #4B5563;
-	--dk-gray-700: #374151;
+	--dk-gray-500: #2e2f32;
+	--dk-gray-600: #222324;
+	--dk-gray-700: #18191a;
 	--dk-gray-800: #1F2937;
-	--dk-gray-900: #111827;
-	--dk-dark-bg: #313348;
-	--dk-darker-bg: #2a2b3d;
-	--navbar-bg-color: #6f6486;
-	--sidebar-bg-color: #252636;
+	--dk-gray-900: #151618;
+	--dk-dark-bg: #0f0f10;
+	--dk-darker-bg: #0d0d0e;
+	--navbar-bg-color: #131314;
+	--sidebar-bg-color: #000000;
 	--sidebar-width: 250px;
 }
 
@@ -465,7 +465,7 @@ body {
     left: 20px;
     cursor: pointer;
     font-size: 30px;
-    color: rgb(0, 0, 0); /* Toggle button color */
+    color: #ffc107; /* Toggle button color */
     z-index: 1000;
   }
 
@@ -592,7 +592,7 @@ body {
             <div class="food">
             <form method="post">
                <!-- <input type="" class="form-control" placeholder="Search for a food item" name="ask"> -->
-               <textarea  cols="30" rows="10" class="form-control" placeholder="Search for a food item" name="ask"></textarea>
+               <textarea  cols="30" rows="10" class="form-control" placeholder="Give ingredients of your recipie" name="ask"></textarea>
                 <button type="submit">Find it!</button>
              </form>
                 {% if response %}
