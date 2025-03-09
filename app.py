@@ -5,7 +5,7 @@ import google.generativeai as ai
 app = Flask(__name__)
 
 # Configure AI model
-ai.configure(api_key="API-KEY")
+ai.configure(api_key="AIzaSyCaMq4ro-BN18OTV9XYvmHc-VX5X6P3MxU")
 model = ai.GenerativeModel("gemini-2.0-flash")
 
 @app.route("/", methods=["GET", "POST"], endpoint="dashboard")
@@ -36,8 +36,7 @@ def Letsmakerecipie():
     response = ""
     if request.method == "POST":
         ask = request.form.get("ask")
-        prompt = f"Give me the micros and macros in {ask} recipie in 100 words, in point-wise format. Provide separate sections for micros and macros.\n\n"
-        
+        prompt = f"Give me the micros and macros and calorie content in {ask} recipie in 100 words, give output without bolding of any word and give evrything in point-wise format in cluding recipie. Provide separate sections for micros and macros.\n\n"
         try:
             result = model.generate_content(prompt)
             response = result.text if result.text else "No response from the model."
@@ -45,6 +44,22 @@ def Letsmakerecipie():
             response = f"Error: {e}"
             
     return render_template("lmr.html", response=response)
+
+
+
+# def Letsmakerecipie():
+#     response = ""
+#     if request.method == "POST":
+#         ask = request.form.get("ask")
+#         prompt = f"Give me the micros and macros in {ask} recipie in 100 words, in point-wise format. Provide separate sections for micros and macros.\n\n"
+        
+#         try:
+#             result = model.generate_content(prompt)
+#             response = result.text if result.text else "No response from the model."
+#         except Exception as e:
+#             response = f"Error: {e}"
+            
+#     return render_template("lmr.html", response=response)
 
 
 
